@@ -18,4 +18,4 @@ Count	Title
 
 ## Total number of retiring employees eligible for the mentorship program
 
-There are currently 1549 employees that would quality to be mentors in the mentorship program. Th following is a list of these employees sorted by the employee number. [mentorship_eligibilty.csv](https://github.com/kevenewe/PH_EmployeeDB/files/10278674/mentorship_eligibilty.csv)
+There are currently 1549 employees that would quality to be mentors in the mentorship program. The following is a list of these employees sorted by the employee number. [mentorship_eligibilty.csv](https://github.com/kevenewe/PH_EmployeeDB/files/10278674/mentorship_eligibilty.csv)
