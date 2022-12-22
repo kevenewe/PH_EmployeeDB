@@ -26,4 +26,20 @@ Development and production are the deparments that have the most employees up fo
 
 There are currently 1549 employees that would quality to be mentors in the mentorship program. The following is a list of these employees sorted by the employee number. [mentorship_eligibilty.csv](https://github.com/kevenewe/PH_EmployeeDB/files/10278674/mentorship_eligibilty.csv)
 
-## total number or mentor  in each department. 
+## Total number of mentors in each department. 
+
+The following table is the number of potential mentors in each department. 
+435	Development
+356	Production
+272	Sales
+128	Customer Service
+126	Marketing
+113	Research
+107	Human Resources
+97	Quality Management
+74	Finance
+![image](https://user-images.githubusercontent.com/117044267/209027594-3afaa68c-4f5b-47c7-881a-adc53966b48a.png)
+
+## Summary
+The total number of employees eligble for retirent are spread throughout the organization.  The larger departments have more people retiring. 
+Th departments have a number of employees that can be future mentors to the employees in the varying departments. 
