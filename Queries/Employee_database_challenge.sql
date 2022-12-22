@@ -163,16 +163,21 @@ INNER JOIN departments as d
 on de.dept_no = d.dept_no
 where d.dept_no in ('d007', 'd005')
 
-
+-- Deliverable 1
 -- 1. retrieve the emp_no, first_name, last_name columns from the employees table.
+SELECT e.emp_no, e.first_name, e.last_name
+from employees as e
+
 -- 2. retrieve the title, from_date, and to_date columns from the titles table.
+SELECT t.title, t.from_date, t.to_date
+from titles as t
 -- 3. create a new table using the into clause 
+
 -- 4. join both tables on the primary key.
 -- 5. Filter the data on the bird-date column to retrieve the employees who were born 
 --		between 1952 and 1955. Then order by the employee number.
 -- 6. Export the retirment titles table from the previous step as retirement_titles.csv 
 -- 		and save it to your data folder in the Pewlett-Hackard-Analysis folder
-
 
 SELECT e.emp_no, e.first_name, e.last_name,
 	t.title, t.from_date, t.to_date
@@ -183,6 +188,7 @@ on e.emp_no = t.emp_no
 where (e.birth_date between '1952-01-01' AND '1955-12-31')
 order by e.emp_no;
 
+-- test to make sure table was created properly
 SELECT * FROM retirement_titles;
 
 -- Use Dictinct with Orderby to remove duplicate rows
@@ -194,15 +200,22 @@ on e.emp_no = t.emp_no
 where (e.birth_date between '1952-01-01' AND '1955-12-31')
 order by e.emp_no;
 
-
 -- Modify table structure so that emp_no is an integer
 ALTER TABLE dept_manager ALTER COLUMN emp_no TYPE integer USING (emp_no::integer);
 
 -- 9. Retrieve the employee number, first and last name, and title columns from the Retirement Titles Table
 -- 10. Use the DISTINCT ON statement to retrieve the first occurrence of the employee number for each 
 --		set of rows defined by the ON () clause.
--- 11. Exclude those employees that have already left eh company by filtering on the to_date to keep 
+
+SELECT DISTINCT ON (rt.emp_no) rt.emp_no, rt.first_name, rt.last_name
+	from retirement_titles as rt
+
+-- 11. Exclude those employees that have already left the company by filtering on the to_date to keep 
 --		only those dates that ae equal to 9999-01-01.
+SELECT DISTINCT ON (rt.emp_no) rt.emp_no, rt.first_name, rt.last_name
+from retirement_titles as rt
+where rt.to_date = ('9999-01-01')
+
 -- 12. Create a Unique Titles table using the INTO clause
 -- 13. Sort the unique titiles table in ascending order by the employee number and descending order by 
 -- 		the last date (i.e., to_date) of the most recent title.
@@ -211,7 +224,7 @@ ALTER TABLE dept_manager ALTER COLUMN emp_no TYPE integer USING (emp_no::integer
 -- Use Dictinct with Orderby to remove duplicate rows
 SELECT DISTINCT ON (rt.emp_no) rt.emp_no, rt.first_name, rt.last_name,
 	rt.title
-INTO unique_titles
+--INTO unique_titles
 from retirement_titles as rt
 where rt.to_date = ('9999-01-01')
 order by rt.emp_no ASC, rt.to_date DESC;
@@ -227,13 +240,73 @@ order by rt.emp_no ASC, rt.to_date DESC;
 -- 20. export the Retiring titles table as retiring_titles.csv and save it to 
 --		the data folder in the ewlett-Hackard-Analysis folder.
 
-SELECT * FROM retirement_titles
-
 SELECT count(ut.title), rt.title
-INTO retiring_titles
+--INTO retiring_titles
 FROM unique_titles as ut
 LEFT JOIN retirement_titles as rt
 ON ut.emp_no = rt.emp_no
 where rt.to_date = '9999-01-01'
 group by rt.title
 order by COUNT (ut.title) desc;
+
+-- add department to retiring_titles table.
+
+DROP TABLE retiring_dept_titles;
+
+SELECT count(ut.title), rt.title, de.dept_no
+INTO retiring_dept_titles
+FROM unique_titles as ut
+INNER JOIN retirement_titles as rt
+ON ut.emp_no = rt.emp_no
+INNER JOIN dept_emp as de
+on ut.emp_no = de.emp_no
+where rt.to_date = '9999-01-01'
+group by de.dept_no, rt.title
+order by de.dept_no, COUNT (ut.title) desc;
+
+-- Deliverable 2
+
+-- 1. Retrieve the emp_no, first_name, last_name, birth_date columns from the employees table.
+-- 2. Retrieve the from_date and to_date columns from theDepartment Employee table
+-- 3. Retrieve the title column from the titles table
+-- 4. Use a distinct on statement to retrieve the first occurrence of the employee number 
+--		for each set of rows defined by the on ()
+-- 5. Create a new table using the into clause.
+-- 6. Join the Employees and the department employee tables on the primary key.
+-- 7. Join the Employees and the Title tables on the primary key.
+-- 8. Filter the data on the to_date column to all the current employees, then filter the data 
+--		on the birth_date columns to get all the employees whose birth dates are between 
+--		January 1, 1965 and December 31, 1965.
+-- 9. Order the table by the employee number.
+-- 10. Export the Mentorship Eligibility table as mentorship_eligibility.csv and save it to your 
+--		Data folder in the Pewlett-Hackard-Analysis folder.
+
+
+
+SELECT DISTINCT ON (e.emp_no) e.emp_no, e.first_name, e.last_name, 
+	e.birth_date, de.from_date, de.to_date
+--INTO mentorship_eligibility
+FROM employees as e
+INNER JOIN dept_emp as de
+on e.emp_no = de.emp_no
+Inner join titles as t
+ON e.emp_no = t.emp_no
+WHERE de.to_date = '9999-01-01'
+AND (e.birth_date between '1965-01-01' AND '1965-12-31')
+order by e.emp_no;
+
+
+
+SELECT count(ut.title), rt.title, d.dept_name
+--INTO retiring_title_bydept
+FROM unique_titles as ut
+Inner JOIN retirement_titles as rt
+ON ut.emp_no = rt.emp_no
+INNER JOIN dept_emp as de
+ON ut.emp_no = de.emp_no
+INNER JOIN departments as d
+on d.dept_no = de.dept_no
+where rt.to_date = '9999-01-01'
+group by d.dept_name, rt.title 
+order by d.dept_name, COUNT (ut.title) desc;
+

@@ -1,0 +1,39 @@
+count,title,dept_no
+3701,Senior Staff,d001
+1115,Staff,d001
+3226,Senior Staff,d002
+973,Staff,d002
+3315,Senior Staff,d003
+1036,Staff,d003
+11256,Senior Engineer,d004
+3975,Engineer,d004
+1597,Technique Leader,d004
+467,Assistant Engineer,d004
+390,Senior Staff,d004
+99,Staff,d004
+12980,Senior Engineer,d005
+4679,Engineer,d005
+1795,Technique Leader,d005
+550,Assistant Engineer,d005
+329,Senior Staff,d005
+118,Staff,d005
+3142,Senior Engineer,d006
+1149,Engineer,d006
+437,Technique Leader,d006
+137,Assistant Engineer,d006
+9663,Senior Staff,d007
+2985,Staff,d007
+1,Manager,d007
+3211,Senior Staff,d008
+981,Staff,d008
+664,Senior Engineer,d008
+244,Engineer,d008
+94,Technique Leader,d008
+21,Assistant Engineer,d008
+1,Manager,d008
+3795,Senior Staff,d009
+1164,Staff,d009
+545,Senior Engineer,d009
+188,Engineer,d009
+64,Technique Leader,d009
+22,Assistant Engineer,d009
